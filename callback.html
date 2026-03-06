@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SF Deployer – Connecting</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0d1117;
+      color: #e6edf3;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Card */
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 14px;
+      padding: 44px 52px;
+      text-align: center;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+
+    /* Logo */
+    .logo {
+      width: 52px; height: 52px;
+      background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.2);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      color: #58a6ff;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #e6edf3;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #8b949e;
+      line-height: 1.7;
+    }
+
+    /* States */
+    .state { display: none; }
+    .state.active { display: block; }
+
+    /* ── Loading state ── */
+    .spinner-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .spinner {
+      width: 44px; height: 44px;
+      border: 3px solid #21262d;
+      border-top-color: #58a6ff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Success state ── */
+    .icon-wrap {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.4); opacity: 0; }
+      to   { transform: scale(1);   opacity: 1; }
+    }
+
+    .icon-success {
+      background: rgba(63,185,80,0.12);
+      border: 1px solid rgba(63,185,80,0.25);
+      color: #3fb950;
+    }
+
+    .icon-error {
+      background: rgba(248,81,73,0.1);
+      border: 1px solid rgba(248,81,73,0.2);
+      color: #f85149;
+    }
+
+    .icon-info {
+      background: rgba(88,166,255,0.1);
+      border: 1px solid rgba(88,166,255,0.2);
+      color: #58a6ff;
+    }
+
+    /* Close note */
+    .close-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 6px 14px;
+      background: rgba(63,185,80,0.08);
+      border: 1px solid rgba(63,185,80,0.15);
+      border-radius: 20px;
+      font-size: 12px;
+      color: #3fb950;
+    }
+
+    /* Progress bar for auto-close */
+    .progress-wrap {
+      height: 3px;
+      background: #21262d;
+      border-radius: 2px;
+      margin-top: 20px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: #3fb950;
+      border-radius: 2px;
+      width: 100%;
+      animation: drain 1.8s linear forwards;
+    }
+
+    @keyframes drain {
+      from { width: 100%; }
+      to   { width: 0%; }
+    }
+
+    /* Error detail box */
+    .error-box {
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: rgba(248,81,73,0.06);
+      border: 1px solid rgba(248,81,73,0.15);
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      color: #f85149;
+      word-break: break-word;
+      text-align: left;
+    }
+
+    /* No opener — copy URL box */
+    .copy-section {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .copy-label {
+      font-size: 11px;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: block;
+      font-family: monospace;
+    }
+
+    .url-box {
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .url-text {
+      flex: 1;
+      padding: 8px 12px;
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      font-size: 10px;
+      font-family: 'Courier New', monospace;
+      color: #58a6ff;
+      word-break: break-all;
+      line-height: 1.5;
+      cursor: text;
+      user-select: all;
+    }
+
+    .copy-btn {
+      padding: 8px 14px;
+      background: #21262d;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      color: #8b949e;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover { background: #2d333b; color: #e6edf3; border-color: #58a6ff; }
+    .copy-btn.copied { background: rgba(63,185,80,0.1); color: #3fb950; border-color: rgba(63,185,80,0.3); }
+
+    /* Direct visit badge */
+    .info-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      background: rgba(210,153,34,0.1);
+      border: 1px solid rgba(210,153,34,0.25);
+      border-radius: 20px;
+      font-size: 12px;
+      color: #d29922;
+      margin-bottom: 20px;
+    }
+
+    /* Step indicator */
+    .steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 20px;
+    }
+
+    .step {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #21262d;
+    }
+    .step.active { background: #58a6ff; }
+    .step.done { background: #3fb950; }
+
+    /* Org info pill */
+    .org-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: #0d1117;
+      border: 1px solid #21262d;
+      border-radius: 8px;
+      margin-top: 16px;
+      font-size: 12px;
+      font-family: monospace;
+      color: #8b949e;
+      word-break: break-all;
+    }
+
+    .org-pill-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #3fb950;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- Always visible logo -->
+    <div class="logo">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z"
+              fill="currentColor" opacity="0.15"/>
+        <path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z"
+              stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- STATE 1: Loading -->
+    <div class="state active" id="stateLoading">
+      <div class="spinner-wrap">
+        <div class="spinner"></div>
+      </div>
+      <h1>Connecting your org...</h1>
+      <p>Completing Salesforce authentication.<br>This tab will close automatically.</p>
+      <div class="steps">
+        <div class="step done"></div>
+        <div class="step done"></div>
+        <div class="step active"></div>
+      </div>
+    </div>
+
+    <!-- STATE 2: Success (extension window found) -->
+    <div class="state" id="stateSuccess">
+      <div class="icon-wrap icon-success">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h1>Org connected!</h1>
+      <p>Authentication successful.<br>Returning you to SF Deployer now.</p>
+      <div class="org-pill" id="orgPill">
+        <div class="org-pill-dot"></div>
+        <span id="orgPillUrl"></span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar"></div>
+      </div>
+      <div class="close-note">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        Closing in 1.8 seconds...
+      </div>
+    </div>
+
+    <!-- STATE 3: Success but no opener -->
+    <div class="state" id="stateNoOpener">
+      <div class="icon-wrap icon-success">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+      </div>
+      <h1>Authentication complete</h1>
+      <p>Copy the full URL below and paste it into the <strong style="color:#e6edf3">SF Deployer</strong> extension to finish connecting.</p>
+      <div class="copy-section">
+        <span class="copy-label">Full callback URL</span>
+        <div class="url-box">
+          <div class="url-text" id="urlTextBox"></div>
+          <button class="copy-btn" id="copyBtn" onclick="copyUrl()">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATE 4: Error from Salesforce -->
+    <div class="state" id="stateError">
+      <div class="icon-wrap icon-error">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </div>
+      <h1>Authentication failed</h1>
+      <p>Salesforce returned an error.<br>Close this tab and try again.</p>
+      <div class="error-box" id="errorBox"></div>
+    </div>
+
+    <!-- STATE 5: Direct visit (no params) -->
+    <div class="state" id="stateDirect">
+      <div class="icon-wrap icon-info">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <div class="info-badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        OAuth Relay Endpoint
+      </div>
+      <h1>SF Deployer</h1>
+      <p>
+        This page is the <strong style="color:#e6edf3">OAuth callback relay</strong> for the SF Deployer Chrome extension.
+        <br><br>
+        It activates automatically when Salesforce redirects here after authentication. You don't need to visit it directly.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    // ── Helpers ──────────────────────────────────────────────
+    function show(id) {
+      document.querySelectorAll('.state').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function copyUrl() {
+      const url = window.location.href;
+      navigator.clipboard.writeText(url).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = '✓ Copied';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2500);
+      }).catch(() => {
+        // Fallback for browsers that block clipboard
+        const box = document.getElementById('urlTextBox');
+        box.focus();
+        document.execCommand('selectAll');
+        document.execCommand('copy');
+      });
+    }
+
+    // ── Parse URL ────────────────────────────────────────────
+    // Salesforce puts the token in the URL hash fragment (#)
+    // e.g. /callback#access_token=00D...&instance_url=https://...
+    const raw = window.location.hash.slice(1) || window.location.search.slice(1);
+    const params = new URLSearchParams(raw);
+
+    const accessToken = params.get('access_token');
+    const instanceUrl = params.get('instance_url');
+    const error       = params.get('error');
+    const errorDesc   = params.get('error_description');
+
+    // ── Route to correct state ───────────────────────────────
+
+    if (error) {
+      // Salesforce returned an error (e.g. access_denied, invalid_scope)
+      show('stateError');
+      const msg = errorDesc
+        ? decodeURIComponent(errorDesc.replace(/\+/g, ' '))
+        : error;
+      document.getElementById('errorBox').textContent =
+        `error: ${error}\ndescription: ${msg}`;
+
+    } else if (accessToken) {
+      // Got a valid token — try to send it to the extension
+
+      const decodedInstance = instanceUrl
+        ? decodeURIComponent(instanceUrl)
+        : '';
+
+      if (window.opener && !window.opener.closed) {
+        // Normal flow — extension window is open, send token via postMessage
+        try {
+          window.opener.postMessage({
+            type: 'SF_DEPLOYER_OAUTH_CALLBACK',
+            accessToken,
+            instanceUrl: decodedInstance
+          }, '*');
+
+          show('stateSuccess');
+
+          // Show the instance URL in the pill
+          if (decodedInstance) {
+            document.getElementById('orgPillUrl').textContent = decodedInstance;
+          } else {
+            document.getElementById('orgPill').style.display = 'none';
+          }
+
+          // Auto close after 1.8s (matches the progress bar animation)
+          setTimeout(() => window.close(), 1800);
+
+        } catch (e) {
+          // postMessage failed — fall back to manual copy
+          showNoOpener();
+        }
+
+      } else {
+        // No opener window — user opened this tab directly after auth
+        // or extension window was closed
+        showNoOpener();
+      }
+
+    } else {
+      // No params at all — someone visited /callback directly
+      show('stateDirect');
+    }
+
+    function showNoOpener() {
+      show('stateNoOpener');
+      document.getElementById('urlTextBox').textContent = window.location.href;
+    }
+  </script>
+
+</body>
+</html>
