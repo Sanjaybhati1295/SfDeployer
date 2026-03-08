@@ -1,709 +1,731 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Privacy Policy — SF Deploy Manager</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0f1e;
-      --surface: #111827;
-      --surface2: #1a2336;
-      --border: rgba(99,179,237,0.12);
-      --accent: #3b9eff;
-      --accent2: #00d4a8;
-      --text: #e8edf5;
-      --muted: #8899b4;
-      --safe: #00d4a8;
-      --warn: #f59e0b;
-      --radius: 14px;
+      --bg:        #f5f3ef;
+      --bg2:       #edeae4;
+      --white:     #ffffff;
+      --border:    #e0dbd2;
+      --border2:   #ccc8bf;
+      --text:      #1e1c18;
+      --body:      #4a4640;
+      --muted:     #8c8680;
+      --accent:    #1a6cf0;
+      --accent-bg: #edf3ff;
+      --green:     #0f7d5a;
+      --green-bg:  #e8f7f2;
+      --amber:     #a05c00;
+      --amber-bg:  #fff4e0;
+      --red:       #c0392b;
+      --red-bg:    #fdf0ee;
+      --radius:    16px;
+      --shadow:    0 2px 12px rgba(0,0,0,0.06);
+      --shadow-hover: 0 6px 24px rgba(0,0,0,0.10);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      font-size: 16px;
-      min-height: 100vh;
-      overflow-x: hidden;
+      color: var(--body);
+      line-height: 1.75;
+      font-size: 15.5px;
     }
 
-    /* Background grid */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(59,158,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(59,158,255,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-image: radial-gradient(circle, #c8c2b8 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.35;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Glow orbs */
-    body::after {
-      content: '';
-      position: fixed;
-      top: -200px;
-      right: -200px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(59,158,255,0.07) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .page-wrapper {
+    .wrap {
       position: relative;
       z-index: 1;
-      max-width: 820px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 0 24px 80px;
+      padding: 0 24px 100px;
     }
 
-    /* ─── HEADER ─── */
-    header {
-      padding: 56px 0 48px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 48px;
+    /* HERO */
+    .hero {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 56px 52px 48px;
+      margin: 40px 0 32px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
     }
 
-    .badge {
+    .hero::after {
+      content: '🔒';
+      position: absolute;
+      right: -10px; top: -10px;
+      font-size: 140px;
+      opacity: 0.04;
+      pointer-events: none;
+      transform: rotate(15deg);
+    }
+
+    .hero-eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(0,212,168,0.1);
-      border: 1px solid rgba(0,212,168,0.25);
-      color: var(--safe);
+      gap: 7px;
       font-size: 12px;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
-      padding: 6px 14px;
+      color: var(--green);
+      background: var(--green-bg);
+      border: 1px solid rgba(15,125,90,0.18);
+      padding: 5px 13px;
       border-radius: 100px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
-    .badge::before {
+    .hero-eyebrow::before {
       content: '';
-      width: 7px;
-      height: 7px;
-      background: var(--safe);
+      width: 6px; height: 6px;
+      background: var(--green);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--safe);
-      animation: pulse 2s infinite;
+      animation: blink 2.2s infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+    @keyframes blink {
+      0%,100% { opacity:1; } 50% { opacity:0.3; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
     }
 
     h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(32px, 5vw, 52px);
-      font-weight: 400;
-      line-height: 1.15;
-      color: #fff;
-      margin-bottom: 16px;
+      font-family: 'Fraunces', serif;
+      font-size: clamp(30px, 4.5vw, 46px);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.18;
+      margin-bottom: 14px;
     }
 
-    h1 span {
+    h1 em {
       font-style: italic;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-weight: 300;
+      color: var(--accent);
     }
 
-    .meta {
+    .hero-sub {
       color: var(--muted);
       font-size: 14px;
       display: flex;
-      gap: 24px;
       flex-wrap: wrap;
-      margin-top: 12px;
+      gap: 18px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
     }
 
-    .meta span { display: flex; align-items: center; gap: 6px; }
-
-    /* ─── TRUST GRID ─── */
-    .trust-grid {
+    /* PROMISE STRIP */
+    .promise-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-      margin-bottom: 56px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.5s 0.1s ease both;
     }
 
-    .trust-card {
-      background: var(--surface);
+    .promise-card {
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 18px 16px;
       text-align: center;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .trust-card:hover {
-      border-color: rgba(59,158,255,0.3);
-      transform: translateY(-2px);
-    }
+    .promise-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+    .promise-icon { font-size: 26px; margin-bottom: 8px; }
+    .promise-label { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+    .promise-desc { font-size: 11.5px; color: var(--muted); line-height: 1.4; }
 
-    .trust-icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-    }
-
-    .trust-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .trust-desc {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    /* ─── SECTIONS ─── */
+    /* SECTIONS */
     .section {
-      margin-bottom: 40px;
-      background: var(--surface);
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--radius);
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
       overflow: hidden;
-      transition: border-color 0.2s;
+      transition: box-shadow 0.2s;
+      animation: fadeUp 0.5s ease both;
     }
 
-    .section:hover { border-color: rgba(59,158,255,0.2); }
+    .section:hover { box-shadow: var(--shadow-hover); }
 
-    .section-header {
+    .sec-head {
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 22px 28px;
+      padding: 20px 28px;
       border-bottom: 1px solid var(--border);
-      background: var(--surface2);
+      background: var(--bg);
     }
 
-    .section-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      flex-shrink: 0;
+    .sec-icon {
+      width: 40px; height: 40px;
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px; flex-shrink: 0;
     }
 
-    .icon-blue { background: rgba(59,158,255,0.12); }
-    .icon-green { background: rgba(0,212,168,0.12); }
-    .icon-amber { background: rgba(245,158,11,0.12); }
-    .icon-purple { background: rgba(167,139,250,0.12); }
-    .icon-red { background: rgba(252,100,100,0.12); }
-    .icon-teal { background: rgba(20,184,166,0.12); }
+    .ic-blue   { background: var(--accent-bg); }
+    .ic-green  { background: var(--green-bg); }
+    .ic-amber  { background: var(--amber-bg); }
+    .ic-red    { background: var(--red-bg); }
 
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 20px;
-      font-weight: 400;
-      color: #fff;
+    .sec-title {
+      font-family: 'Fraunces', serif;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text);
     }
 
-    .section-body { padding: 24px 28px; }
-
-    .section-body p {
+    .sec-num {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 600;
       color: var(--muted);
-      font-size: 15px;
-      margin-bottom: 16px;
+      background: var(--bg2);
+      padding: 3px 9px;
+      border-radius: 100px;
     }
 
-    .section-body p:last-child { margin-bottom: 0; }
+    .sec-body { padding: 26px 28px; }
+    .sec-body p { color: var(--body); margin-bottom: 14px; font-size: 15px; }
+    .sec-body p:last-child { margin-bottom: 0; }
 
-    /* ─── DATA TABLE ─── */
-    .data-table {
+    /* TABLE */
+    table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 8px;
+      margin-top: 12px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
     }
 
-    .data-table th {
+    thead tr { background: var(--bg); }
+
+    th {
       text-align: left;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--muted);
-      padding: 10px 14px;
+      padding: 11px 16px;
       border-bottom: 1px solid var(--border);
     }
 
-    .data-table td {
+    td {
       font-size: 14px;
-      padding: 12px 14px;
+      padding: 13px 16px;
       border-bottom: 1px solid var(--border);
-      color: var(--text);
       vertical-align: top;
+      color: var(--body);
     }
 
-    .data-table tr:last-child td { border-bottom: none; }
-    .data-table tr:hover td { background: rgba(59,158,255,0.03); }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--bg); }
+    td:first-child { font-weight: 500; color: var(--text); }
 
-    .data-table td:first-child { color: var(--accent); font-weight: 500; }
-    .data-table td:last-child { color: var(--muted); }
-
-    /* ─── PILL TAGS ─── */
+    /* PILLS */
     .pill {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       padding: 3px 10px;
       border-radius: 100px;
       font-size: 12px;
       font-weight: 600;
     }
+    .pill::before { content:''; width:5px; height:5px; border-radius:50%; }
 
-    .pill-green { background: rgba(0,212,168,0.12); color: var(--safe); }
-    .pill-red { background: rgba(252,100,100,0.12); color: #fc6464; }
-    .pill-amber { background: rgba(245,158,11,0.12); color: var(--warn); }
+    .pill-yes   { background: var(--green-bg);  color: var(--green); }
+    .pill-yes::before  { background: var(--green); }
+    .pill-no    { background: var(--red-bg);    color: var(--red);   }
+    .pill-no::before   { background: var(--red); }
+    .pill-local { background: var(--accent-bg); color: var(--accent);}
+    .pill-local::before { background: var(--accent); }
 
-    /* ─── PERMISSION LIST ─── */
-    .perm-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    /* PERMISSION LIST */
+    .perm-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
 
     .perm-item {
       display: flex;
-      align-items: flex-start;
       gap: 14px;
+      align-items: flex-start;
       padding: 14px 16px;
-      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 11px;
+      background: var(--bg);
+      transition: border-color 0.15s;
     }
 
-    .perm-name {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent);
+    .perm-item:hover { border-color: var(--accent); }
+
+    .perm-tag {
       font-family: 'Courier New', monospace;
-      background: rgba(59,158,255,0.08);
-      padding: 2px 8px;
-      border-radius: 4px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-bg);
+      border: 1px solid rgba(26,108,240,0.15);
+      padding: 3px 9px;
+      border-radius: 6px;
       white-space: nowrap;
       flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .perm-desc {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.5;
-    }
+    .perm-text { font-size: 14px; color: var(--body); line-height: 1.55; }
 
-    /* ─── HIGHLIGHT BOX ─── */
-    .highlight-box {
+    /* CALLOUT */
+    .callout {
       display: flex;
-      gap: 14px;
-      background: rgba(0,212,168,0.06);
-      border: 1px solid rgba(0,212,168,0.2);
-      border-radius: 10px;
-      padding: 16px 20px;
+      gap: 13px;
+      padding: 14px 18px;
+      border-radius: 11px;
       margin-top: 16px;
+      font-size: 14px;
+      line-height: 1.55;
     }
 
-    .highlight-box .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
-    .highlight-box p { margin: 0; color: var(--text); font-size: 14px; }
+    .callout .ci { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .callout p { margin: 0; }
 
-    .warn-box {
-      background: rgba(245,158,11,0.06);
-      border-color: rgba(245,158,11,0.2);
-    }
+    .callout-green { background: var(--green-bg); border: 1px solid rgba(15,125,90,0.18); color: #0a5a40; }
+    .callout-amber { background: var(--amber-bg); border: 1px solid rgba(160,92,0,0.18);  color: var(--amber); }
+    .callout-blue  { background: var(--accent-bg); border: 1px solid rgba(26,108,240,0.18); color: #1050b8; }
 
-    /* ─── CONTACT ─── */
-    .contact-card {
-      background: linear-gradient(135deg, rgba(59,158,255,0.08), rgba(0,212,168,0.06));
-      border: 1px solid rgba(59,158,255,0.2);
-      border-radius: var(--radius);
-      padding: 32px;
-      text-align: center;
-      margin-top: 48px;
-    }
-
-    .contact-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 22px;
-      color: #fff;
-      margin-bottom: 8px;
-    }
-
-    .contact-card p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
-
-    .contact-email {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 12px 24px;
-      border-radius: 100px;
-      color: var(--accent);
-      font-weight: 500;
-      font-size: 15px;
-      text-decoration: none;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .contact-email:hover {
-      border-color: var(--accent);
-      background: rgba(59,158,255,0.08);
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      text-align: center;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-      margin-top: 48px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    footer a { color: var(--accent); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-
-    /* ─── TOC ─── */
+    /* TOC */
     .toc {
-      background: var(--surface);
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px 28px;
-      margin-bottom: 40px;
+      padding: 22px 26px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.5s 0.15s ease both;
     }
 
-    .toc-title {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
+    .toc-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 14px;
     }
 
-    .toc-list {
-      list-style: none;
+    .toc-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 4px;
     }
 
-    .toc-list a {
+    .toc-grid a {
       display: flex;
       align-items: center;
       gap: 8px;
-      color: var(--text);
+      color: var(--body);
       text-decoration: none;
       font-size: 14px;
-      padding: 6px 0;
-      transition: color 0.15s;
+      padding: 7px 8px;
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
     }
 
-    .toc-list a:hover { color: var(--accent); }
-    .toc-list a::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--accent);
+    .toc-grid a:hover { background: var(--bg); color: var(--accent); }
+
+    .toc-grid a .tn {
+      width: 20px; height: 20px;
+      background: var(--bg2);
+      border-radius: 5px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
       flex-shrink: 0;
-      opacity: 0.5;
     }
 
-    @media (max-width: 600px) {
-      .trust-grid { grid-template-columns: repeat(2, 1fr); }
-      .section-body { padding: 18px; }
-      .section-header { padding: 18px; }
-      .data-table { font-size: 13px; }
+    /* CONTACT */
+    .contact {
+      background: linear-gradient(135deg, #f0f5ff 0%, #e8f7f2 100%);
+      border: 1px solid #d4e4f7;
+      border-radius: 20px;
+      padding: 40px 36px;
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    .contact h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .contact p { color: var(--muted); font-size: 14px; margin-bottom: 22px; }
+
+    .email-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--white);
+      border: 1.5px solid var(--border2);
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 15px;
+      padding: 13px 26px;
+      border-radius: 100px;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    }
+
+    .email-btn:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(26,108,240,0.15);
+      transform: translateY(-1px);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding-top: 36px;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+    footer strong { color: var(--body); }
+
+    @media (max-width: 640px) {
+      .hero { padding: 32px 24px; }
+      .promise-strip { grid-template-columns: repeat(2, 1fr); }
+      .sec-body, .sec-head { padding: 18px; }
     }
   </style>
 </head>
 <body>
-<div class="page-wrapper">
+<div class="wrap">
 
-  <!-- HEADER -->
-  <header>
-    <div class="badge">Privacy Protected</div>
-    <h1>Privacy Policy for<br><span>SF Deploy Manager</span></h1>
-    <div class="meta">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Your Privacy is Protected</div>
+    <h1>Privacy Policy<br>for <em>SF Deploy Manager</em></h1>
+    <p style="color:var(--muted); margin-top:12px; font-size:15px;">
+      We built this extension with one simple principle — your data belongs to you, and it stays with you. No servers. No tracking. No exceptions.
+    </p>
+    <div class="hero-sub">
       <span>📅 Effective: March 8, 2026</span>
       <span>🔄 Last Updated: March 8, 2026</span>
-      <span>📦 Chrome Extension</span>
+      <span>🧩 Chrome Extension</span>
     </div>
-  </header>
+  </div>
 
-  <!-- TRUST GRID -->
-  <div class="trust-grid">
-    <div class="trust-card">
-      <div class="trust-icon">🔒</div>
-      <div class="trust-label">No Data Collection</div>
-      <div class="trust-desc">We never collect your personal data</div>
+  <!-- PROMISE STRIP -->
+  <div class="promise-strip">
+    <div class="promise-card">
+      <div class="promise-icon">🔒</div>
+      <div class="promise-label">Zero Data Collection</div>
+      <div class="promise-desc">We never collect personal info</div>
     </div>
-    <div class="trust-card">
-      <div class="trust-icon">💻</div>
-      <div class="trust-label">100% Local Storage</div>
-      <div class="trust-desc">Everything stays on your device</div>
+    <div class="promise-card">
+      <div class="promise-icon">💻</div>
+      <div class="promise-label">Stays On Your Device</div>
+      <div class="promise-desc">All data stored locally only</div>
     </div>
-    <div class="trust-card">
-      <div class="trust-icon">🚫</div>
-      <div class="trust-label">No Third Parties</div>
-      <div class="trust-desc">Your data is never shared or sold</div>
+    <div class="promise-card">
+      <div class="promise-icon">🚫</div>
+      <div class="promise-label">No Third Parties</div>
+      <div class="promise-desc">Never shared or sold</div>
     </div>
-    <div class="trust-card">
-      <div class="trust-icon">👁️</div>
-      <div class="trust-label">No Tracking</div>
-      <div class="trust-desc">Zero analytics or tracking scripts</div>
+    <div class="promise-card">
+      <div class="promise-icon">📊</div>
+      <div class="promise-label">No Tracking</div>
+      <div class="promise-desc">Zero analytics scripts</div>
     </div>
   </div>
 
   <!-- TOC -->
   <div class="toc">
-    <div class="toc-title">Table of Contents</div>
-    <ul class="toc-list">
-      <li><a href="#overview">Overview</a></li>
-      <li><a href="#data-collected">Data We Collect</a></li>
-      <li><a href="#data-storage">How Data is Stored</a></li>
-      <li><a href="#permissions">Permissions Explained</a></li>
-      <li><a href="#salesforce">Salesforce Authentication</a></li>
-      <li><a href="#third-party">Third-Party Services</a></li>
-      <li><a href="#children">Children's Privacy</a></li>
-      <li><a href="#changes">Policy Changes</a></li>
-      <li><a href="#contact">Contact Us</a></li>
-    </ul>
+    <div class="toc-label">Jump to Section</div>
+    <div class="toc-grid">
+      <a href="#overview"><span class="tn">1</span> Overview</a>
+      <a href="#data"><span class="tn">2</span> Data We Collect</a>
+      <a href="#storage"><span class="tn">3</span> How Data is Stored</a>
+      <a href="#permissions"><span class="tn">4</span> Permissions Explained</a>
+      <a href="#auth"><span class="tn">5</span> Salesforce Auth</a>
+      <a href="#third"><span class="tn">6</span> Third-Party Services</a>
+      <a href="#children"><span class="tn">7</span> Children's Privacy</a>
+      <a href="#changes"><span class="tn">8</span> Policy Changes</a>
+    </div>
   </div>
 
-  <!-- OVERVIEW -->
+  <!-- 1. OVERVIEW -->
   <div class="section" id="overview">
-    <div class="section-header">
-      <div class="section-icon icon-blue">📋</div>
-      <h2 class="section-title">Overview</h2>
+    <div class="sec-head">
+      <div class="sec-icon ic-blue">📋</div>
+      <h2 class="sec-title">Overview</h2>
+      <span class="sec-num">01</span>
     </div>
-    <div class="section-body">
-      <p>SF Deploy Manager ("the Extension") is a Chrome browser extension that enables Salesforce developers and administrators to deploy metadata components between Salesforce orgs directly from their browser.</p>
-      <p>We are committed to protecting your privacy. This policy explains exactly what data the extension accesses, how it is used, and where it is stored. The short answer: <strong style="color: var(--text)">everything stays on your device</strong> — nothing is transmitted to our servers.</p>
-      <div class="highlight-box">
-        <div class="icon">✅</div>
-        <p><strong>Bottom line:</strong> SF Deploy Manager does not operate any servers, does not collect telemetry, and does not have access to your Salesforce data outside of what you explicitly initiate through the extension UI.</p>
+    <div class="sec-body">
+      <p>SF Deploy Manager is a Chrome extension that lets Salesforce developers and admins deploy metadata components between orgs directly from their browser — without needing complex setups or external tools.</p>
+      <p>We are fully committed to your privacy. This policy explains exactly what data is accessed, why it's needed, and where it lives.</p>
+      <div class="callout callout-green">
+        <span class="ci">✅</span>
+        <p><strong>Everything stays on your device.</strong> SF Deploy Manager does not run any servers, does not collect usage data, and only communicates with Salesforce orgs that you explicitly connect to.</p>
       </div>
     </div>
   </div>
 
-  <!-- DATA COLLECTED -->
-  <div class="section" id="data-collected">
-    <div class="section-header">
-      <div class="section-icon icon-green">🗂️</div>
-      <h2 class="section-title">Data We Collect</h2>
+  <!-- 2. DATA -->
+  <div class="section" id="data">
+    <div class="sec-head">
+      <div class="sec-icon ic-green">🗂️</div>
+      <h2 class="sec-title">Data We Collect</h2>
+      <span class="sec-num">02</span>
     </div>
-    <div class="section-body">
-      <p>The extension only stores data that is strictly necessary for its core functionality. All data is stored locally on your device.</p>
-      <table class="data-table">
+    <div class="sec-body">
+      <p>The extension only stores what is strictly needed for it to work. Here's a complete breakdown:</p>
+      <table>
         <thead>
           <tr>
             <th>Data Type</th>
-            <th>Purpose</th>
+            <th>Why It's Needed</th>
             <th>Sent Externally?</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Org aliases & access tokens</td>
-            <td>Authenticate with connected Salesforce orgs</td>
-            <td><span class="pill pill-green">Never</span></td>
+            <td>Authenticate with your Salesforce orgs</td>
+            <td><span class="pill pill-no">Never</span></td>
           </tr>
           <tr>
             <td>Deployment history</td>
-            <td>Track past deployments for audit & rollback</td>
-            <td><span class="pill pill-green">Never</span></td>
+            <td>Track past deployments & enable rollback</td>
+            <td><span class="pill pill-no">Never</span></td>
           </tr>
           <tr>
             <td>Metadata snapshots</td>
-            <td>Enable rollback to previous component states</td>
-            <td><span class="pill pill-green">Never</span></td>
+            <td>Restore components to previous state</td>
+            <td><span class="pill pill-no">Never</span></td>
           </tr>
           <tr>
             <td>User preferences</td>
-            <td>Remember UI settings and defaults</td>
-            <td><span class="pill pill-green">Never</span></td>
+            <td>Remember your UI settings & defaults</td>
+            <td><span class="pill pill-no">Never</span></td>
           </tr>
           <tr>
             <td>Active tab URL</td>
             <td>Auto-detect current Salesforce org</td>
-            <td><span class="pill pill-green">Never</span></td>
+            <td><span class="pill pill-no">Never</span></td>
           </tr>
         </tbody>
       </table>
-      <div class="highlight-box warn-box" style="margin-top: 20px;">
-        <div class="icon">⚠️</div>
-        <p>We do <strong>not</strong> collect names, email addresses, IP addresses, usage analytics, crash reports, or any other personally identifiable information.</p>
+      <div class="callout callout-amber" style="margin-top:18px;">
+        <span class="ci">⚠️</span>
+        <p>We do <strong>not</strong> collect names, emails, IP addresses, usage analytics, crash reports, or any personally identifiable information.</p>
       </div>
     </div>
   </div>
 
-  <!-- DATA STORAGE -->
-  <div class="section" id="data-storage">
-    <div class="section-header">
-      <div class="section-icon icon-purple">💾</div>
-      <h2 class="section-title">How Data is Stored</h2>
+  <!-- 3. STORAGE -->
+  <div class="section" id="storage">
+    <div class="sec-head">
+      <div class="sec-icon ic-blue">💾</div>
+      <h2 class="sec-title">How Data is Stored</h2>
+      <span class="sec-num">03</span>
     </div>
-    <div class="section-body">
-      <p>All data generated by the extension is stored exclusively on your local machine using Chrome's built-in storage APIs and your local filesystem:</p>
-      <table class="data-table">
+    <div class="sec-body">
+      <p>All data is stored locally on your machine using Chrome's built-in storage APIs. Nothing ever touches an external server owned by us.</p>
+      <table>
         <thead>
-          <tr>
-            <th>Storage Location</th>
-            <th>What's Stored</th>
-          </tr>
+          <tr><th>Where</th><th>What's Stored There</th><th>Location</th></tr>
         </thead>
         <tbody>
           <tr>
             <td>Chrome local storage</td>
-            <td>Org connections, preferences, deployment metadata</td>
+            <td>Org connections, preferences, deployment logs</td>
+            <td><span class="pill pill-local">Your Device</span></td>
           </tr>
           <tr>
             <td>Chrome unlimitedStorage</td>
-            <td>Deployment snapshots and metadata component files</td>
+            <td>Deployment snapshots & metadata files</td>
+            <td><span class="pill pill-local">Your Device</span></td>
           </tr>
           <tr>
-            <td>Salesforce servers only</td>
-            <td>Metadata API calls go directly to your own Salesforce org — never to our servers</td>
+            <td>Salesforce API calls</td>
+            <td>Metadata goes directly to your own org — never to our servers</td>
+            <td><span class="pill pill-local">Your Org Only</span></td>
           </tr>
         </tbody>
       </table>
-      <p style="margin-top: 16px;">You can clear all locally stored data at any time via <strong style="color: var(--text)">Chrome Settings → Extensions → SF Deploy Manager → Clear Data</strong>.</p>
+      <p style="margin-top:16px; font-size:14px; color:var(--muted);">
+        🗑️ Clear all data anytime: <strong style="color:var(--body)">Chrome Settings → Extensions → SF Deploy Manager → Clear Data</strong>
+      </p>
     </div>
   </div>
 
-  <!-- PERMISSIONS -->
+  <!-- 4. PERMISSIONS -->
   <div class="section" id="permissions">
-    <div class="section-header">
-      <div class="section-icon icon-amber">🔑</div>
-      <h2 class="section-title">Permissions Explained</h2>
+    <div class="sec-head">
+      <div class="sec-icon ic-amber">🔑</div>
+      <h2 class="sec-title">Permissions Explained</h2>
+      <span class="sec-num">04</span>
     </div>
-    <div class="section-body">
-      <p>The extension requests only the minimum permissions necessary. Here is why each permission is required:</p>
+    <div class="sec-body">
+      <p>We only request permissions that are absolutely essential. Here's exactly why each one is needed — in plain English:</p>
       <ul class="perm-list">
         <li class="perm-item">
-          <span class="perm-name">storage</span>
-          <span class="perm-desc">Saves org connections, deployment history, and user preferences locally on your device. No data leaves your machine.</span>
+          <span class="perm-tag">storage</span>
+          <span class="perm-text">Saves org connections, deployment history, and settings locally on your device. No data leaves your machine.</span>
         </li>
         <li class="perm-item">
-          <span class="perm-name">unlimitedStorage</span>
-          <span class="perm-desc">Metadata snapshots used for rollback can be large. Standard Chrome storage quota (5MB) is insufficient — this permission allows adequate local storage for full deployment history.</span>
+          <span class="perm-tag">unlimitedStorage</span>
+          <span class="perm-text">Metadata snapshots for rollback can be large. Chrome's standard 5MB quota isn't enough — this lets us store full deployment history and rollback files locally.</span>
         </li>
         <li class="perm-item">
-          <span class="perm-name">tabs</span>
-          <span class="perm-desc">Reads the URL of the active tab to auto-detect which Salesforce org you are currently viewing — eliminating the need for manual org selection.</span>
+          <span class="perm-tag">tabs</span>
+          <span class="perm-text">Reads the URL of your active tab to auto-detect which Salesforce org you're on — so you don't have to select it manually every time.</span>
         </li>
         <li class="perm-item">
-          <span class="perm-name">host permissions<br/><small style="opacity:0.6">(*.salesforce.com, *.force.com)</small></span>
-          <span class="perm-desc">Required to communicate with Salesforce APIs (Metadata API, Tooling API) to retrieve and deploy metadata components to your own Salesforce orgs.</span>
+          <span class="perm-tag">host permissions</span>
+          <span class="perm-text">Required to communicate with Salesforce APIs (*.salesforce.com, *.force.com) to retrieve and deploy metadata to your own orgs.</span>
         </li>
       </ul>
-    </div>
-  </div>
-
-  <!-- SALESFORCE AUTH -->
-  <div class="section" id="salesforce">
-    <div class="section-header">
-      <div class="section-icon icon-teal">☁️</div>
-      <h2 class="section-title">Salesforce Authentication</h2>
-    </div>
-    <div class="section-body">
-      <p>The extension uses Salesforce's standard OAuth 2.0 web flow for authentication. This means:</p>
-      <ul class="perm-list">
-        <li class="perm-item">
-          <span class="perm-name">OAuth 2.0</span>
-          <span class="perm-desc">You log in directly on Salesforce's official login page. Your Salesforce password is never seen or stored by this extension.</span>
-        </li>
-        <li class="perm-item">
-          <span class="perm-name">Access Tokens</span>
-          <span class="perm-desc">Tokens are stored locally using Chrome's secure storage API and are used only to make API calls to your own Salesforce org.</span>
-        </li>
-        <li class="perm-item">
-          <span class="perm-name">API Calls</span>
-          <span class="perm-desc">All Salesforce API requests go directly from your browser to your Salesforce org. No requests are routed through any intermediate server we operate.</span>
-        </li>
-      </ul>
-      <div class="highlight-box" style="margin-top: 16px;">
-        <div class="icon">🔐</div>
-        <p>You can revoke access at any time from your Salesforce org under <strong>Setup → Connected Apps OAuth Usage</strong>.</p>
+      <div class="callout callout-blue" style="margin-top:16px;">
+        <span class="ci">ℹ️</span>
+        <p>If a future update requires a new permission, we will notify you and explain why before you accept.</p>
       </div>
     </div>
   </div>
 
-  <!-- THIRD PARTY -->
-  <div class="section" id="third-party">
-    <div class="section-header">
-      <div class="section-icon icon-red">🔗</div>
-      <h2 class="section-title">Third-Party Services</h2>
+  <!-- 5. AUTH -->
+  <div class="section" id="auth">
+    <div class="sec-head">
+      <div class="sec-icon ic-green">☁️</div>
+      <h2 class="sec-title">Salesforce Authentication</h2>
+      <span class="sec-num">05</span>
     </div>
-    <div class="section-body">
-      <p>SF Deploy Manager does <strong style="color: var(--text)">not</strong> integrate with or transmit data to any third-party services, analytics platforms, advertising networks, or cloud storage providers.</p>
-      <p>The only external communication the extension performs is direct API calls to your own Salesforce org instances (e.g., <code style="color: var(--accent); font-size: 13px;">yourorg.salesforce.com</code>).</p>
-      <table class="data-table" style="margin-top: 8px;">
+    <div class="sec-body">
+      <p>We use Salesforce's standard <strong>OAuth 2.0 web flow</strong> — the same secure method used by VS Code and Salesforce CLI.</p>
+      <ul class="perm-list">
+        <li class="perm-item">
+          <span class="perm-tag">OAuth 2.0</span>
+          <span class="perm-text">You log in directly on Salesforce's official login page. Your password is never seen, intercepted, or stored by this extension.</span>
+        </li>
+        <li class="perm-item">
+          <span class="perm-tag">Access Tokens</span>
+          <span class="perm-text">OAuth tokens are stored securely in Chrome's local storage and used only to make API calls to your own Salesforce org.</span>
+        </li>
+        <li class="perm-item">
+          <span class="perm-tag">Direct API Calls</span>
+          <span class="perm-text">All Salesforce requests go directly from your browser to your org. No traffic is routed through any server we operate.</span>
+        </li>
+      </ul>
+      <div class="callout callout-green" style="margin-top:16px;">
+        <span class="ci">🔐</span>
+        <p>Revoke access anytime: <strong>Salesforce Setup → Connected Apps OAuth Usage</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. THIRD PARTY -->
+  <div class="section" id="third">
+    <div class="sec-head">
+      <div class="sec-icon ic-red">🔗</div>
+      <h2 class="sec-title">Third-Party Services</h2>
+      <span class="sec-num">06</span>
+    </div>
+    <div class="sec-body">
+      <p>SF Deploy Manager does <strong>not</strong> integrate with any third-party analytics, advertising, or cloud storage. The only external communication is directly to your own Salesforce org.</p>
+      <table>
         <thead>
-          <tr><th>Service Type</th><th>Used?</th></tr>
+          <tr><th>Service Type</th><th>Do We Use It?</th></tr>
         </thead>
         <tbody>
-          <tr><td>Analytics / Tracking</td><td><span class="pill pill-red">No</span></td></tr>
-          <tr><td>Crash Reporting</td><td><span class="pill pill-red">No</span></td></tr>
-          <tr><td>Advertising</td><td><span class="pill pill-red">No</span></td></tr>
-          <tr><td>Cloud Storage</td><td><span class="pill pill-red">No</span></td></tr>
-          <tr><td>External APIs (non-Salesforce)</td><td><span class="pill pill-red">No</span></td></tr>
-          <tr><td>Salesforce APIs (your org only)</td><td><span class="pill pill-green">Yes</span></td></tr>
+          <tr><td>Analytics / Tracking</td><td><span class="pill pill-no">No</span></td></tr>
+          <tr><td>Crash Reporting</td><td><span class="pill pill-no">No</span></td></tr>
+          <tr><td>Advertising Networks</td><td><span class="pill pill-no">No</span></td></tr>
+          <tr><td>Cloud Storage (our servers)</td><td><span class="pill pill-no">No</span></td></tr>
+          <tr><td>External APIs (non-Salesforce)</td><td><span class="pill pill-no">No</span></td></tr>
+          <tr><td>Salesforce APIs (your org only)</td><td><span class="pill pill-yes">Yes</span></td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- CHILDREN -->
+  <!-- 7. CHILDREN -->
   <div class="section" id="children">
-    <div class="section-header">
-      <div class="section-icon icon-purple">👶</div>
-      <h2 class="section-title">Children's Privacy</h2>
+    <div class="sec-head">
+      <div class="sec-icon ic-blue">👨‍👩‍👧</div>
+      <h2 class="sec-title">Children's Privacy</h2>
+      <span class="sec-num">07</span>
     </div>
-    <div class="section-body">
-      <p>SF Deploy Manager is a professional developer tool intended solely for adults. It is not directed at children under the age of 13. We do not knowingly collect any information from children.</p>
+    <div class="sec-body">
+      <p>SF Deploy Manager is a professional developer tool designed for adults. It is not directed at children under the age of 13. We do not knowingly collect any information from children. If you believe a child has used this extension, please contact us and we will promptly address it.</p>
     </div>
   </div>
 
-  <!-- CHANGES -->
+  <!-- 8. CHANGES -->
   <div class="section" id="changes">
-    <div class="section-header">
-      <div class="section-icon icon-amber">📝</div>
-      <h2 class="section-title">Policy Changes</h2>
+    <div class="sec-head">
+      <div class="sec-icon ic-amber">📝</div>
+      <h2 class="sec-title">Policy Changes</h2>
+      <span class="sec-num">08</span>
     </div>
-    <div class="section-body">
-      <p>If we update this privacy policy, we will update the "Last Updated" date at the top of this page and release a new version of the extension through the Chrome Web Store. Continued use of the extension after changes constitutes acceptance of the updated policy.</p>
-      <p>We will never introduce data collection or external sharing without clearly notifying users and updating this policy.</p>
+    <div class="sec-body">
+      <p>If we update this policy, we will update the "Last Updated" date and release a new extension version through the Chrome Web Store. Continued use after changes means you accept the updated policy.</p>
+      <div class="callout callout-blue">
+        <span class="ci">📢</span>
+        <p>We will <strong>never</strong> introduce data collection or external sharing without clearly notifying users first.</p>
+      </div>
     </div>
   </div>
 
   <!-- CONTACT -->
-  <div class="contact-card" id="contact">
-    <h3>Questions or Concerns?</h3>
-    <p>If you have any questions about this privacy policy or how your data is handled, we're here to help.</p>
-    <a href="mailto:sanjaybhati1295@gmail.com" class="contact-email">
-      ✉️ ssanjaybhati1295@gmail.com
-    </a>
+  <div class="contact" id="contact">
+    <h3>Have Questions?</h3>
+    <p>We're happy to explain anything about how your data is handled. Reach out anytime.</p>
+    <a href="mailto:sanjaybhati1295@gmail.com" class="email-btn">✉️ sanjaybhati1295@gmail.com</a>
   </div>
 
   <footer>
-    <p>© 2026 SF Deploy Manager · <a href="#">Chrome Web Store</a> · All Rights Reserved</p>
-    <p style="margin-top: 8px;">This extension is not affiliated with or endorsed by Salesforce, Inc.</p>
+    <p>© 2026 <strong>SF Deploy Manager</strong> · <a href="#">Chrome Web Store</a> · All Rights Reserved</p>
+    <p style="margin-top:6px; font-size:12px;">This extension is not affiliated with or endorsed by Salesforce, Inc.</p>
   </footer>
 
 </div>
